@@ -1,0 +1,72 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Стили для десктопной версии */
+h1 {
+    height: 30vh; /* 20% от высоты видимой области */
+    background-image: url('atb.jpg'); /* Пути к изображению */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white; /* Цвет текста */
+}
+
+
+p {
+    font-size: 20px;
+}
+
+/* Адаптация под мобильные устройства */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    h1 {
+        font-size: 28px;
+    }
+
+    p {
+        font-size: 16px;
+    }
+}
+
+
+
+.job-card {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            /* width: 350px; */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .job-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .job-info {
+            display: flex;
+            gap: 10px;
+        }
+        .info-item {
+            display: flex;
+            align-items: center;
+            background-color: #e3e3e3;
+            padding: 8px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+        .info-item img {
+            margin-right: 5px;
+        }

