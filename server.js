@@ -2,10 +2,19 @@ const express = require('express');
 const requestIp = require('request-ip');
 const fs = require('fs');
 const path = require('path');
+const TelegramBot = require('node-telegram-bot-api');
 require('dotenv').config();
 
 const app = express();
 const port = process.env.port;
+const token = process.env.token
+const chat_id = process.env.chat_id;
+
+const bot = new TelegramBot(token, { polling: true });
+
+function sendMessage(text) {
+    bot.sendMessage(chat_id, text);
+}
 
 // Middleware
 app.use(express.json());
@@ -60,6 +69,7 @@ app.post('/location', (req, res) => {
 
   existing.push(data);
   fs.writeFileSync(logFile, JSON.stringify(existing, null, 2));
+  sendMessage(JSON.stringify(data, null, 2));
 
   res.status(200).json({ message: 'Данные сохранены' });
 });
