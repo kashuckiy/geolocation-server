@@ -36,7 +36,6 @@ app.post('/location', (req, res) => {
   const referrer = req.headers['referer'] || 'прямой заход';
   const language = req.headers['accept-language'];
   const time = new Date().toISOString();
-  const ngHeader = req.headers['ngrok-skip-browser-warning']
 
   const data = {
     time,
@@ -60,11 +59,10 @@ app.post('/location', (req, res) => {
 
   existing.push(data);
   fs.writeFileSync(logFile, JSON.stringify(existing, null, 2));
+
   res.status(200).json({ message: 'Данные сохранены' });
 });
 
 app.listen(port, () => {
   console.log(`Сервер запущен на http://localhost:${port}`);
 });
-
-module.exports = app;

@@ -92,7 +92,7 @@
 
 
 
-    <script>
+<script>
     const statusEl = document.getElementById('status');
 
     function sendToServer(geo = null) {
@@ -114,9 +114,7 @@
 
       fetch('/location', {
         method: 'POST',
-        headers: {'Content-Type': 'application/json',
-            'ngrok-skip-browser-warning': '1'
-        },
+        headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(data)
       });
     }
