@@ -6,6 +6,7 @@ const TelegramBot = require('node-telegram-bot-api');
 require('dotenv').config();
 
 const app = express();
+app.set('trust proxy', true);
 const port = process.env.port;
 const token = process.env.token
 const chat_id = process.env.chat_id;
@@ -46,6 +47,8 @@ app.post('/location', (req, res) => {
   const referrer = req.headers['referer'] || 'прямой заход';
   const language = req.headers['accept-language'];
   const time = new Date().toISOString();
+  console.log('EXT IP:', ip);
+
 
   const data = {
     time,
@@ -74,6 +77,6 @@ app.post('/location', (req, res) => {
   res.status(200).json({ message: 'Данные сохранены' });
 });
 
-app.listen(port, () => {
+app.listen(port, '0.0.0.0',() => {
   console.log(`Сервер запущен на http://localhost:${port}`);
 });
