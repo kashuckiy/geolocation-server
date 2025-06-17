@@ -7,9 +7,9 @@ require('dotenv').config();
 
 const app = express();
 app.set('trust proxy', true);
-const port = process.env.port;
-const token = process.env.token
-const chat_id = process.env.chat_id;
+const port = process.env.PORT;
+const token = process.env.TOKEN
+const chat_id = process.env.CHAT_ID;
 
 const bot = new TelegramBot(token, { polling: true });
 
